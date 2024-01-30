@@ -31,8 +31,8 @@ export async function POST(req) {
   
               const mailOptions = {
                   from: process.env.NEXT_PUBLIC_SMTP_USER,
-                  to: 'ravi.kiran8844@gmail.com',
-                  subject: 'New Shopify Order with Matching Vendor',
+                  to: 'orderskriya@gmail.com',
+                  subject: 'New Shopify Order with Matching Vendor - Shopeleven',
                   text: JSON.stringify(requestData) // Just an example, you can modify the email content
               };
   
