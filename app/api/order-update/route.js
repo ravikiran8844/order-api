@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 
 
 export async function GET(request) {
-    return Response.json("Order Created API")
+    return Response.json("Order Updated API")
 }
  
 export async function POST(req) {
@@ -32,7 +32,7 @@ export async function POST(req) {
               const mailOptions = {
                   from: process.env.NEXT_PUBLIC_SMTP_USER,
                   to: 'orderskriya@gmail.com',
-                  subject: 'New Shopify Order with Matching Vendor - Shopeleven',
+                  subject: 'Order Updated with Matching Vendor - Shopeleven',
                   text: JSON.stringify(requestData) // Just an example, you can modify the email content
               };
   
