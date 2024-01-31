@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "form-data": "^4.0.0",
     "next": "14.1.0",
+    "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.8",
     "react": "^18",
     "react-dom": "^18"

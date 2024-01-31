@@ -15,7 +15,7 @@ export async function POST(req) {
         const lineItems = requestData.line_items || []; // If the property is nested, use the correct path
 
           // Check if any line item has the matching vendor
-          const hasMatchingVendor = lineItems.some(item => item.vendor === 'Shopeleven');
+          const hasMatchingVendor = lineItems.some(item => item.vendor === 'Fitput');
 
           if (hasMatchingVendor) {
               // Rest of your email sending logic
@@ -32,7 +32,7 @@ export async function POST(req) {
               const mailOptions = {
                   from: process.env.NEXT_PUBLIC_SMTP_USER,
                   to: 'orderskriya@gmail.com',
-                  subject: 'Order Updated with Matching Vendor - Shopeleven',
+                  subject: 'Order Updated with Matching Vendor - Fitput',
                   text: JSON.stringify(requestData) // Just an example, you can modify the email content
               };
   
@@ -48,11 +48,27 @@ export async function POST(req) {
                   });
   
               await sendMailPromise();
-              return NextResponse.json({ message: 'Email sent' });
-          } else {
-              return NextResponse.json({ message: 'No matching vendor found, email not sent' });
-          }
-      } catch (err) {
-          return NextResponse.json({ error: err.message }, { status: 500 });
-      }
-  }
+
+
+                             // Send JSON data as a POST request to the specified endpoint
+            const apiUrl = 'https://Omni-proxy.increff.com/shopify/api/push/orderUpdate';
+            const apiResponse = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            });
+
+            if (apiResponse.ok) {
+                return NextResponse.json({ message: 'Email sent and data sent to API successfully' });
+            } else {
+                return NextResponse.json({ message: 'Email sent but failed to send data to API' });
+            }
+        } else {
+            return NextResponse.json({ message: 'No matching vendor found, email not sent' });
+        }
+    } catch (err) {
+        return NextResponse.json({ error: err.message }, { status: 500 });
+    }
+}
